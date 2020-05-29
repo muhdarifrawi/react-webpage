@@ -16,7 +16,13 @@ export default class Section1 extends React.Component
     }
     
     onTickEvent(event){
-        this.setState({tickBox: event.target.tickBox});
+        const target = event.target;
+        const value = target.name === 'tickBox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+        [name]: value
+        });
         console.log("hey there" + this.state.tickBox);
     }
  
