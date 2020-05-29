@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Section1 from './Section1.js';
+import Axios from './axios.js'
 
 
 ReactDOM.render(
   <React.StrictMode>
+    <Axios/>
     <Section1 />
     <App />
   </React.StrictMode>,
