@@ -25,12 +25,18 @@ export default class Axios extends React.Component
  
     render()
     {   
-
+        console.log(this.state.items)
+        for (const each in this.state.items){
+            console.log(each);
+        }
+        
         return(
         <div className="axios">
             <h1>This is an axios</h1>
             <p>{this.state.items.name}</p>
-            
+
+            {console.log("i can log here too")}
+            {console.log(this.state.items)}
             
         </div>
         )
