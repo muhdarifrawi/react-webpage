@@ -8,7 +8,9 @@ export default class Axios extends React.Component
     constructor(props){
         super(props);
         this.state = {
-            items:"",
+            error:null,
+            isLoaded: false,
+            items: []
         }
     }
 
@@ -17,33 +19,43 @@ export default class Axios extends React.Component
 
     componentDidMount() {
         const axios = require('axios').default;
+        const API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
 
-        axios.get('https://pokeapi.co/api/v2/pokemon/ditto')
-          .then(response => this.setState({items: response.data}))
-          .catch(err => console.log(err))
+        axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?key=${API_KEY}&query=ntuc`)
+          .then(response => response.data)
+          .then((data) => {
+            this.setState({ 
+                isLoaded: true,
+                items: data 
+            });
+           },
+           (error)=>{
+               this.setState({
+                isLoaded: true,
+                error
+            });
+           }
+           )
+            
     }
  
     render()
     {   
-        console.log(this.state.items)
-        for (const each in this.state.items){
-            console.log(each);
-        }
-
-        // ideally this is not the best way to keep secrets. this is meant for dev stage only. 
-        // people can use devtool to actually read youe .env files in React
-        const API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
-        console.log(API_KEY);
-
-        return(
-        <div className="axios">
-            <h1>This is an axios</h1>
-            <p>{this.state.items.name}</p>
-
-            {console.log("i can log here too")}
-            {console.log(this.state.items)}
-            
-        </div>
-        )
+        const { error, isLoaded, items } = this.state;
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <ul>
+          {items.results.map(item => (
+            <li key={item.name}>
+              {item.name}
+            </li>
+          ))}
+        </ul>
+      );
+    }
     }
 }
