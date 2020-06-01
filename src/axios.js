@@ -24,6 +24,7 @@ export default class Axios extends React.Component
         axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?key=${API_KEY}&query=ntuc`)
           .then(response => response.data)
           .then((data) => {
+            console.log(data);
             this.setState({ 
                 isLoaded: true,
                 items: data 
@@ -51,7 +52,7 @@ export default class Axios extends React.Component
         <ul>
           {items.results.map(item => (
             <li key={item.name}>
-              {item.name}
+              {item.name}, {item.formatted_address} {item.geometry.location.lat}, {item.geometry.location.lng}
             </li>
           ))}
         </ul>
