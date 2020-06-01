@@ -52,7 +52,9 @@ export default class Axios extends React.Component
         <ul>
           {items.results.map(item => (
             <li key={item.name}>
-              {item.name}, {item.formatted_address} {item.geometry.location.lat}, {item.geometry.location.lng}
+              <h3>{item.name}</h3> 
+              <p>{item.formatted_address}</p> 
+              <p>{item.geometry.location.lat}, {item.geometry.location.lng}</p>
             </li>
           ))}
         </ul>
